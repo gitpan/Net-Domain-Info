@@ -6,7 +6,7 @@ use Net::Domain::Info::IDN;
 use Encode;
 
 use vars qw($VERSION);
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 has 'idn';
 has 'name';
@@ -26,7 +26,7 @@ sub import {
 		$plugin = "${package}${plugin_tag}"
 			if $plugin_tag =~ /^::/;
 		die "can't require package '$plugin'"
-			unless require_package ($plugin);
+			unless try_to_use ($plugin);
 		
 		warn "plugin '$plugin' must contain '_init' method, skipped"
 			unless $plugin->can ('_init');
